@@ -1,10 +1,6 @@
-# Projecting points using a parametric model
-# http://pointclouds.org/documentation/tutorials/project_inliers.php#project-inliers
-
 import pcl
 import numpy as np
-import random
-from visualizer import visualize
+
 
 def project(cloud, coefficients):
 
