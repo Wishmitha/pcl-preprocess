@@ -35,7 +35,7 @@ def main():
     cloud_plane = cloud_filtered.extract(indices, negative=False)
     # NG : const char* not str
     # cloud_plane.to_file('table_scene_mug_stereo_textured_plane.pcd')
-    pcl.save(cloud_plane, 'table_scene_mug_stereo_textured_plane.pcd')
+    #pcl.save(cloud_plane, 'table_scene_mug_stereo_textured_plane.pcd')
 
     cloud_cyl = cloud_filtered.extract(indices, negative=True)
 
@@ -52,7 +52,7 @@ def main():
     print(model)
 
     cloud_cylinder = cloud_cyl.extract(indices, negative=False)
-    vs.visualize(cloud=cloud_cylinder)
+    vs.multi_visualize(clouds=[cloud_cylinder, cloud_plane])
     # NG : const char* not str
     # cloud_cylinder.to_file("table_scene_mug_stereo_textured_cylinder.pcd")
     #pcl.save(cloud_cylinder, 'table_scene_mug_stereo_textured_cylinder.pcd')
