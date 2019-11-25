@@ -6,6 +6,7 @@
 
 import pcl
 import visualizer as vs
+import planar_segmentation as ps
 
 
 def main():
@@ -52,7 +53,8 @@ def main():
     print(model)
 
     cloud_cylinder = cloud_cyl.extract(indices, negative=False)
-    vs.visualize(cloud=cloud_plane)
+    #vs.visualize(cloud=cloud_plane)
+    ps.segment(cloud)
     # NG : const char* not str
     # cloud_cylinder.to_file("table_scene_mug_stereo_textured_cylinder.pcd")
     #pcl.save(cloud_cylinder, 'table_scene_mug_stereo_textured_cylinder.pcd')
