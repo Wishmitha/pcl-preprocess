@@ -1,7 +1,6 @@
 import pcl
 import pcl.pcl_visualization
 
-
 def visualize(path=None, cloud=None): #visualize a pointcloud based on path or cloud
 
     viewer = pcl.pcl_visualization.PCLVisualizering()
