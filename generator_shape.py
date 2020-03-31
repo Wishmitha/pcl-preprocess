@@ -2,18 +2,15 @@ from math import sqrt
 import random
 import numpy as np
 
-import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
 
-
-def sphere_generator(radius, num_points):
+def sphere_generator(radius, num_points, noise):
 
     surface_coord = []
 
     for i in range(num_points):
-        x = random.uniform(-100,100)
-        y = random.uniform(-100,100)
-        z = random.uniform(-100,100)
+        x = random.uniform(-100,100) + random.uniform(-noise,noise)
+        y = random.uniform(-100,100) + random.uniform(-noise,noise)
+        z = random.uniform(-100,100) + random.uniform(-noise,noise)
         
         points = np.zeros(shape=(3,));
 
@@ -58,27 +55,11 @@ def cube_generator(length, num_points):
         points[1] = y;
         points[2] = z;
 
+        points= points*length
+
         surface_coord.append(points)
 
     return np.array(surface_coord)
-
-some = cube_generator(10,10000)
-
-fig = plt.figure()
-ax = fig.add_subplot(111, projection='3d')
-
-
-
-# Data for three-dimensional scattered points
-
-xdata = some[:,0]
-ydata = some[:,1]
-zdata = some[:,2]
-
-ax.scatter3D(xdata, ydata, zdata, c=zdata, cmap='Greens', s=2);
-
-plt.show()
-
 
 
 
