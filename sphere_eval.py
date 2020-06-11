@@ -1,10 +1,12 @@
 import random
 
+import matplotlib
 import numpy as np
 import generator_shape as gn
 import matplotlib.pyplot as plt
 import dist_eval as evl
 from mpl_toolkits.mplot3d import Axes3D
+import matplotlib.cm as cm
 
 #spehere: 162,642,2562 #change radius as well
 
@@ -13,7 +15,7 @@ from mpl_toolkits.mplot3d import Axes3D
 
 radius = random.randint(0,100)
 noise = radius/100
-num_points = 2562  #spehere: 162,642,2562 #change radius as well
+num_points = 162 #spehere: 162,642,2562 #change radius as well
 
 mesh1 = gn.sphere_generator(radius, num_points, noise)
 
@@ -50,7 +52,7 @@ xtest = mesh1[:, 0]
 ytest = mesh1[:, 1]
 ztest = mesh1[:, 2]
 
-ax2 = ax2.scatter3D(xtest, ytest, ztest, c=rms_dis, cmap='bwr', s=rms_dis);
+ax2 = ax2.scatter3D(xtest, ytest, ztest, c=rms_dis, cmap='Spectral_r', s=50);
 
 fig2.colorbar(ax2)
 
@@ -65,7 +67,7 @@ xtest = mesh1[:, 0]
 ytest = mesh1[:, 1]
 ztest = mesh1[:, 2]
 
-ax2 = ax2.scatter3D((xtest - np.min(xtest)) / np.ptp(xtest), (ytest - np.min(ytest)) / np.ptp(ytest), (ztest - np.min(ztest)) / np.ptp(ztest), c=rms_dis_w_no, cmap='bwr', s=rms_dis_w_no);
+ax2 = ax2.scatter3D((xtest - np.min(xtest)) / np.ptp(xtest), (ytest - np.min(ytest)) / np.ptp(ytest), (ztest - np.min(ztest)) / np.ptp(ztest), c=rms_dis_w_no, cmap='Spectral_r', s=50);
 
 fig2.colorbar(ax2)
 
@@ -80,7 +82,7 @@ xtest = mesh1[:, 0]
 ytest = mesh1[:, 1]
 ztest = mesh1[:, 2]
 
-ax3 = ax3.scatter3D(xtest, ytest, ztest, c=cham_dis, cmap='bwr', s=cham_dis);
+ax3 = ax3.scatter3D(xtest, ytest, ztest, c=cham_dis, cmap='Spectral_r', s=50);
 
 fig3.colorbar(ax3)
 
@@ -95,8 +97,39 @@ xtest = mesh1[:, 0]
 ytest = mesh1[:, 1]
 ztest = mesh1[:, 2]
 
-ax4 = ax4.scatter3D((xtest - np.min(xtest)) / np.ptp(xtest), (ytest - np.min(ytest)) / np.ptp(ytest), (ztest - np.min(ztest)) / np.ptp(ztest), c=cham_dis_w_no, cmap='bwr', s=cham_dis_w_no);
+ax4 = ax4.scatter3D((xtest - np.min(xtest)) / np.ptp(xtest), (ytest - np.min(ytest)) / np.ptp(ytest), (ztest - np.min(ztest)) / np.ptp(ztest), c=cham_dis_w_no, cmap='Spectral_r', s=50);
 
 fig4.colorbar(ax4)
+
+# uniform
+
+fig5 = plt.figure()
+ax5 = fig5.gca(projection='3d')
+ax5.set_aspect("equal")
+
+u, v = np.mgrid[0:2*np.pi:18j, 0:np.pi:9j]
+x = np.cos(u)*np.sin(v)
+y = np.sin(u)*np.sin(v)
+z = np.cos(v)
+
+
+
+#ax5.scatter(x, y, z, c=cham_dis_w_no,cmap='Spectral_r',s=100)
+#print(cham_dis_w_no)
+#cham_dis_w_no = np.reshape(cham_dis_w_no,(169,1))
+#print(cham_dis_w_no)
+
+color_dimension = np.reshape(cham_dis_w_no,(18,9)) # change to desired fourth dimension
+minn, maxx = color_dimension.min(), color_dimension.max()
+norm = matplotlib.colors.Normalize(minn, maxx)
+m = plt.cm.ScalarMappable(norm=norm, cmap='Spectral_r')
+m.set_array([])
+fcolors = m.to_rgba(color_dimension)
+
+print(fcolors.shape)
+
+ax5.plot_surface(x, y, z, facecolors=fcolors,alpha=1)
+
+fig5.colorbar(m)
 
 plt.show()

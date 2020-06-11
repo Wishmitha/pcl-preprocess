@@ -51,9 +51,9 @@ def cube_generator(length, num_points):
 
         points = np.zeros(shape=(3,));
 
-        points[0] = x;
-        points[1] = y;
-        points[2] = z;
+        points[0] = x
+        points[1] = y
+        points[2] = z
 
         points= points*length
 
